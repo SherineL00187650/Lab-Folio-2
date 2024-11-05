@@ -68,7 +68,7 @@ function updateCreditsDisplay() {
 }
 
 // Unlock hints in stages based on credits
-function unlockHint() {
+function unlockHint() {}
     const currentQuestion = questions[currentQuestionIndex];
     const hintCost = 5; // Set the cost for each hint stage
 
