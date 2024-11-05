@@ -92,4 +92,4 @@ def main():
             if prop_choice in agent.properties:
                 player_properties.append(prop_choice)
         elif choice == "3":
-            print("Your
+            print("Your")
