@@ -1,0 +1,62 @@
+[
+    {
+        "question": "What is the name of the protagonist in BOTW?",
+        "options": ["Link", "Zelda", "Ganondorf", "Mipha"],
+        "answer": "Link"
+    },
+    {
+        "question": "Which divine beast is located in the Gerudo Desert?",
+        "options": ["Vah Ruta", "Vah Naboris", "Vah Medoh", "Vah Rudania"],
+        "answer": "Vah Naboris"
+    },
+    {
+        "question": "What material is needed to upgrade the Hylian Shield?",
+        "options": ["Lynel Horn", "Lynel Hoof", "Ancient Core", "Diamonds"],
+        "answer": "Diamonds"
+    },
+    {
+        "question": "Who is the Rito champion that aids Link?",
+        "options": ["Revali", "Daruk", "Mipha", "Urbosa"],
+        "answer": "Revali"
+    },
+    {
+        "question": "What is the name of the kingdom where BOTW takes place?",
+        "options": ["Lorule", "Labrynna", "Termina", "Hyrule"],
+        "answer": "Hyrule"
+    }
+]
+
+[
+    {
+        "shrineName": "Owa Daim Shrine",
+        "hint": "Located on the Great Plateau near a cliff, east of the Temple of Time. Look for a cave entrance."
+    },
+    {
+        "shrineName": "Ja Baij Shrine",
+        "hint": "Find this shrine in the Eastern Abbey on the Great Plateau, guarded by a decayed Guardian. Approach carefully."
+    },
+    {
+        "shrineName": "Keh Namut Shrine",
+        "hint": "On the Great Plateau’s snowy mountains. Bring warm clothes or a spicy meal to survive the cold."
+    },
+    {
+        "shrineName": "Tahno O'ah Shrine",
+        "hint": "Hidden in a cave at the base of Mount Lanayru. Look for a waterfall nearby to locate the entrance."
+    },
+    {
+        "shrineName": "Shrine of Resurrection",
+        "hint": "This is where your journey begins. Located on the Great Plateau, deep inside a sacred cave."
+    },
+    {
+        "shrineName": "Shae Loya Shrine",
+        "hint": "On a hill to the west of the Tabantha Bridge Stable. Follow the road north from the stable to find it."
+    },
+    {
+        "shrineName": "Daqa Koh Shrine",
+        "hint": "Located in the Gortram Cliff region in Eldin. Look for a mine entrance near the Bridge of Eldin."
+    },
+    {
+        "shrineName": "Namika Ozz Shrine",
+        "hint": "In the West Hyrule Plains, south of the Ridgeland Tower. Follow the path up a rocky slope."
+    }
+]
