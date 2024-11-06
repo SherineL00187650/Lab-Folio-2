@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOTW Trivia Game</title>
+    <style>
+        /* Basic Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #2c2c2c;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #61dafb;
+        }
+
+        #question {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .option-button {
+            padding: 10px;
+            background-color: #444;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .option-button:hover {
+            background-color: #555;
+        }
+
+        .option-button.correct {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .option-button.incorrect {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        #next-button {
+            padding: 10px 20px;
+            background-color: #61dafb;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: none;
+            transition: background-color 0.3s;
+        }
+
+        #next-button:hover {
+            background-color: #21a1f1;
+        }
+
+        #credits {
+            margin-top: 15px;
+            font-size: 18px;
+        }
+
+        #result {
+            font-size: 20px;
+            margin-top: 20px;
+            color: #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BOTW Trivia Game</h1>
+        <div id="question-container">
+            <div id="question">Loading question...</div>
+            <div class="options" id="options-container">
+                <!-- Option buttons will be generated here -->
+            </div>
+        </div>
+        <button id="next-button">Next Question</button>
+        <div id="credits">Credits Earned: 0</div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // Trivia Questions Data
+        const questions = [
+            {
+                question: "What is the name of the protagonist in BOTW?",
+                options: ["Link", "Zelda", "Ganondorf", "Mipha"],
+                answer: "Link"
+            },
+            {
+                question: "Which divine beast is located in the Gerudo Desert?",
+                options: ["Vah Ruta", "Vah Naboris", "Vah Medoh", "Vah Rudania"],
+                answer: "Vah Naboris"
+            },
+            {
+                question: "What material is needed to upgrade the Hylian Shield?",
+                options: ["Lynel Horn", "Lynel Hoof", "Ancient Core", "Diamonds"],
+                answer: "Diamonds"
+            },
+            {
+                question: "Who is the Rito champion that aids Link?",
+                options: ["Revali", "Daruk", "Mipha", "Urbosa"],
+                answer: "Revali"
+            },
+            {
+                question: "What is the name of the kingdom where BOTW takes place?",
+                options: ["Lorule", "Labrynna", "Termina", "Hyrule"],
+                answer: "Hyrule"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let credits = 0;
+
+        // DOM Elements
+        const questionEl = document.getElementById('question');
+        const optionsContainer = document.getElementById('options-container');
+        const nextButton = document.getElementById('next-button');
+        const creditsEl = document.getElementById('credits');
+        const resultEl = document.getElementById('result');
+
+        // Load the current question
+        function loadQuestion() {
+            resetState();
+            if (currentQuestionIndex < questions.length) {
+                const currentQuestion = questions[currentQuestionIndex];
+                questionEl.textContent = currentQuestion.question;
+                currentQuestion.options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.textContent = option;
+                    button.classList.add('option-button');
+                    button.addEventListener('click', () => selectAnswer(button, currentQuestion.answer));
+                    optionsContainer.appendChild(button);
+                });
+            } else {
+                showResult();
+            }
+        }
+
+        // Reset UI for next question
+        function resetState() {
+            nextButton.style.display = 'none';
+            resultEl.textContent = '';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        // Handle answer selection
+        function selectAnswer(selectedButton, correctAnswer) {
+            const buttons = document.querySelectorAll('.option-button');
+            buttons.forEach(button => {
+                button.disabled = true;
+                if (button.textContent === correctAnswer) {
+                    button.classList.add('correct');
+                }
+                if (button !== selectedButton && button.textContent !== correctAnswer) {
+                    button.classList.add('incorrect');
+                }
+            });
+
+            if (selectedButton.textContent === correctAnswer) {
+                credits += 10;
+                creditsEl.textContent = `Credits Earned: ${credits}`;
+                resultEl.textContent = "Correct! +10 Credits.";
+            } else {
+                resultEl.textContent = "Incorrect!";
+            }
+            nextButton.style.display = 'block';
+        }
+
+        // Show final result
+        function showResult() {
+            questionEl.textContent = "You've completed the trivia!";
+            nextButton.style.display = 'none';
+            resultEl.textContent = `Total Credits Earned: ${credits}`;
+        }
+
+        // Move to next question
+        nextButton.addEventListener('click', () => {
+            currentQuestionIndex++;
+            loadQuestion();
+        });
+
+        // Initialize the game
+        loadQuestion();
+    </script>
+</body>
+</html>
