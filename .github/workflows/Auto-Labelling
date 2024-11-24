@@ -14,5 +14,5 @@ jobs:
       - name: Adding Labels
         uses: actions/issue-labeler@v3
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.SHERINE_SECRET_TOKEN }}
           configuration-path: .github/AutoLabelling.yml
