@@ -1,18 +1,49 @@
-name: Auto-Labelling of Issues
+name: Auto Label Names
+
 on:
   issues:
     types: [opened]
 
-permissions:
-  contents: read
-  issues: write
-
 jobs:
-  label_issues:
+  auto-label:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Adding Labels
-        uses: actions/issue-labeler@v3
+      # Step 1: Checkout repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Step 2: Auto-label issues based on content
+      - name: Add Labels to Issues
+        uses: actions-ecosystem/action-add-labels@v1
         with:
-          repo-token: ${{ secrets.SHERINE_SECRET_TOKEN }}
-          configuration-path: .github/AutoLabelling.yml
+          github_token: ${{ secrets.SHERINE_SECRET_TOKEN}}
+          labels: ${{ steps.determine-labels.outputs.labels }}
+      - name: Determine Labels
+        id: determine-labels
+        run: |
+          ISSUE_CONTENT=$(jq -r '.issue.title + " " + .issue.body' "${{ github.event_path }}")
+          LABELS=""
+          
+          # Define label rules
+          if [[ "$ISSUE_CONTENT" == "bug" ]]; then
+            LABELS+="bug,"
+          fi
+          if [[ "$ISSUE_CONTENT" == "feature" ]]; then
+            LABELS+="enhancement,"
+          fi
+          if [[ "$ISSUE_CONTENT" == "docs" ]]; then
+            LABELS+="documentation,"
+          fi
+           if [[ "$ISSUE_CONTENT" == "docs" ]]; then
+            LABELS+="frontend,"
+          fi
+           if [[ "$ISSUE_CONTENT" == "docs" ]]; then
+            LABELS+="Backend,"
+          fi
+           if [[ "$ISSUE_CONTENT" == "docs" ]]; then
+            LABELS+="UI,"
+            
+          # Remove trailing comma and export
+          LABELS=${LABELS%,}
+          echo "::set-output name=labels::$LABELS"
